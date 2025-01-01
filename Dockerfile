@@ -1,5 +1,8 @@
-# Use an official Tomcat image with OpenJDK 11
-FROM tomcat:9-jdk11-openjdk
+# Use Tomcat 10.1 with OpenJDK 17
+FROM tomcat:10.1-jdk17-slim
+
+# Set the working directory
+WORKDIR /usr/local/tomcat
 
 # Remove the default web applications provided by Tomcat
 RUN rm -rf /usr/local/tomcat/webapps/*
