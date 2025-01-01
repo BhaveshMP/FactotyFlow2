@@ -1,23 +1,13 @@
-# Use an official Maven image with OpenJDK 17
-FROM maven:3.8.4-jdk-17-slim AS build
+# Use the official Tomcat 10.1 image with OpenJDK 17
+FROM tomcat:10.1-jdk17-slim AS build
 
-# Set the working directory
-WORKDIR /app
+# Remove the default web applications provided by Tomcat
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy your pom.xml and the source code into the container
-COPY pom.xml .
-COPY src /app/src
+# Copy the WAR file into Tomcat's webapps directory
+COPY FactoryFlow2.war /usr/local/tomcat/webapps/ROOT.war
 
-# Run Maven to build the app
-RUN mvn clean install
-
-# Use a smaller JDK runtime image to run the app
-FROM openjdk:17-jre-slim
-
-# Copy the .war file from the build stage
-COPY --from=build /app/target/FactoryFlow2.war /usr/local/tomcat/webapps/ROOT.war
-
-# Expose port 8080
+# Expose port 8080 for Tomcat
 EXPOSE 8080
 
 # Start Tomcat server when the container is started
