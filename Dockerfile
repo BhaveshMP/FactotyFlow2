@@ -5,7 +5,7 @@ FROM tomcat:10.1-jdk21-openjdk-slim
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy your WAR file into Tomcat's webapps directory
-COPY FactoryFlow2.war /usr/local/tomcat/webapps/ROOT.war
+COPY FactoryFlow2.war /usr/local/tomcat/webapps/FactoryFlow2.war
 
 # Expose port 8080, which is the default for Tomcat
 EXPOSE 8080
